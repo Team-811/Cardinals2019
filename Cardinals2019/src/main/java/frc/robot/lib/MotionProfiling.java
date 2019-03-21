@@ -217,5 +217,37 @@ public class MotionProfiling
      {
         return (segmentIndex / trajectory.length()) * 100;
      }
+
+
+
+
+     //Pathfinder Methods
+
+    public void followTrajectoryPathfinder()
+    {
+        int leftEncoderPosition;
+		int rightEncoderPosition;
+		
+		leftEncoderPosition = leftEncoderStartingPosition
+				+ Math.abs(leftEncoderStartingPosition - frontleft.getSelectedSensorPosition(0));
+		rightEncoderPosition = rightEncoderStartingPosition
+				+ Math.abs(rightEncoderStartingPosition - frontright.getSelectedSensorPosition(0));
+
+
+		l = leftFollower.calculate(leftEncoderPosition);
+		r = rightFollower.calculate(rightEncoderPosition);
+
+		double gyro_heading = ahrs.getYaw() * -1; // counter clockwise rotation should be positive
+		double desired_heading = Pathfinder.r2d(leftFollower.getHeading()); // Should also be in degrees
+
+		double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
+		double turn = gyro_correction_power * (-1.0 / 80.0) * angleDifference;
+
+		if (!reverse) {
+			driveTrain.tankDrive(l + turn, r - turn);
+		} else {
+			driveTrain.tankDrive(-l + turn, -r - turn);
+        }
+    }
  }
 
