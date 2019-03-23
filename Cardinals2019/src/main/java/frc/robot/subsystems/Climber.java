@@ -8,7 +8,12 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -27,34 +32,53 @@ public class Climber extends Subsystem implements ISubsystem{
       return instance;
   }
 
-  private TalonSRX armMotor;
-  private TalonSRX stiltMotor;
+  private CANSparkMax armMotor;
+  private CANSparkMax stiltMotor;
   private TalonSRX wheelMotor;
 
-  private DigitalInput upperArmLimitSwitch;
-  private DigitalInput lowerArmLimitSwitch;
-  private DigitalInput upperStiltLimitSwitch;
-  private DigitalInput lowerStiltLimitSwitch;
+  private DigitalInput armLimitSwitch;
+  private DigitalInput stiltLimitSwitch;
   private DigitalInput habLimitSwitch;
+
+  private AHRS gyro;
 
   public Climber()
   {
-    armMotor = new TalonSRX(RobotMap.CLIMBER_ARM_MOTOR);
-    stiltMotor = new TalonSRX(RobotMap.CLIMBER_STILT_MOTOR);
+
+    armMotor = new CANSparkMax(RobotMap.CLIMBER_ARM_MOTOR, MotorType.kBrushless);
+    stiltMotor = new CANSparkMax(RobotMap.CLIMBER_STILT_MOTOR, MotorType.kBrushless);
     wheelMotor = new TalonSRX(RobotMap.CLIMBER_WHEEL_MOTOR); 
+
+    armMotor.setInverted(false);
+    stiltMotor.setInverted(false);
+    wheelMotor.setInverted(false);
+
+    armMotor.setIdleMode(IdleMode.kBrake);
+    stiltMotor.setIdleMode(IdleMode.kBrake);
+    wheelMotor.setNeutralMode(NeutralMode.Brake);
+
+    armLimitSwitch = new DigitalInput(RobotMap.CLIMBER_ARM_LIMIT_SWITCH);
+    stiltLimitSwitch = new DigitalInput(RobotMap.CLIMBER_STILT_LIMIT_SWITCH);
+    habLimitSwitch = new DigitalInput(RobotMap.CLIMBER_HAB_LIMIT_SWITCH);
+
+    Drivetrain drivetrain = Drivetrain.getInstance(); //Only used to get gyro instance
+    gyro = drivetrain.getGyro();
+
+
+
   }
 
   //ClimberMethods
 
-  public void setArmMotor(double rotation)
+  public void setArmMotor(double value)
   {
-    armMotor.set(ControlMode.PercentOutput, rotation);
+    armMotor.set(value);
       
   }
 
   public void setStiltMotor(double value)
   {
-    stiltMotor.set(ControlMode.PercentOutput, value);
+    stiltMotor.set(value);
       
   }
 
@@ -64,20 +88,20 @@ public class Climber extends Subsystem implements ISubsystem{
       
   }
 
-  public boolean getUpperArmSwitch() {
-    return upperArmLimitSwitch.get();
+  public void levelClimb(double value)
+  {
+      double motorCorrection = gyro.getPitch() * 0.04;
+
+      armMotor.set(value - motorCorrection);
+      stiltMotor.set(value + motorCorrection);
   }
 
-  public boolean getLowerArmSwitch() {
-    return lowerArmLimitSwitch.get();
+  public boolean getArmSwitch() {
+    return armLimitSwitch.get();
   }
 
-  public boolean getUpperStiltSwitch() {
-    return upperStiltLimitSwitch.get();
-  }
-
-  public boolean getLowerStiltSwitch() {
-    return lowerStiltLimitSwitch.get();
+  public boolean getStiltSwitch() {
+    return stiltLimitSwitch.get();
   }
 
   public boolean getHabSwitch() {

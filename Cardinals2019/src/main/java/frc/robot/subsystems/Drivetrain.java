@@ -456,6 +456,11 @@ public class Drivetrain extends Subsystem implements ISubsystem{
       gyro.zeroYaw();
   }
 
+  public AHRS getGyro()
+  {
+      return gyro;
+  }
+
 
 
 

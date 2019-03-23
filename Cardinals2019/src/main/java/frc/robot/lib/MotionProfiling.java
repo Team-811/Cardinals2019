@@ -222,7 +222,7 @@ public class MotionProfiling
 
 
      //Pathfinder Methods
-
+    /*
     public void followTrajectoryPathfinder()
     {
         int leftEncoderPosition;
@@ -249,5 +249,6 @@ public class MotionProfiling
 			driveTrain.tankDrive(-l + turn, -r - turn);
         }
     }
+    */
  }
 
