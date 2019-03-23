@@ -96,12 +96,30 @@ public class Climber extends Subsystem implements ISubsystem{
       stiltMotor.set(value + motorCorrection);
   }
 
-  public boolean getArmSwitch() {
-    return armLimitSwitch.get();
+  public void stopClimbUp()
+  {
+    armMotor.set(0);
+    stiltMotor.set(0);
   }
 
-  public boolean getStiltSwitch() {
-    return stiltLimitSwitch.get();
+  public boolean getArmSwitchAtZero() {
+    return armLimitSwitch.get() && armMotor.getEncoder().getPosition() < 200;
+  }
+
+  public boolean getArmSwitchAtBottom() {
+    return armLimitSwitch.get() && armMotor.getEncoder().getPosition() > 200;
+  }
+
+  public boolean getStiltSwitchZero() {
+    return stiltLimitSwitch.get() && stiltMotor.getEncoder().getPosition() < 200;
+  }
+
+  public boolean getStiltSwitchHab2() {
+    return stiltLimitSwitch.get() && stiltMotor.getEncoder().getPosition() > 200 && stiltMotor.getEncoder().getPosition() < 400;
+  }
+
+  public boolean getStiltSwitchHab3() {
+    return stiltLimitSwitch.get() && stiltMotor.getEncoder().getPosition() > 400;
   }
 
   public boolean getHabSwitch() {
