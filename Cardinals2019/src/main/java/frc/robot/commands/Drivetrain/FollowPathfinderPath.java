@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import jaci.pathfinder.Waypoint;
 
-public class FollowPath extends Command {
+public class FollowPathfinderPath extends Command {
 
   private Waypoint[] path;
   private boolean reverse;
 
-  public FollowPath(Waypoint[] path, boolean reverse) {
+  public FollowPathfinderPath(Waypoint[] path, boolean reverse) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
 
@@ -26,7 +26,7 @@ public class FollowPath extends Command {
 
   }
 
-  public FollowPath(Waypoint[] path) {
+  public FollowPathfinderPath(Waypoint[] path) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
 
@@ -39,19 +39,19 @@ public class FollowPath extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.drivetrain.loadTrajectory(path, reverse);
+    Robot.drivetrain.loadTrajectoryPathfinder(path, reverse);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drivetrain.followTrajectory(reverse);
+    Robot.drivetrain.followTrajectoryPathfinder(reverse);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.drivetrain.isPathFinished();
+    return Robot.drivetrain.isPathFinishedPathfinder();
   }
 
   // Called once after isFinished returns true

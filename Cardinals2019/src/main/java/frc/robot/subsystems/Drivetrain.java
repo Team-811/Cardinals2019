@@ -177,8 +177,8 @@ public class Drivetrain extends Subsystem implements ISubsystem{
 
       topLeftMotor.set(ControlMode.PercentOutput, driveOutput.getTopLeftValue());
       topRightMotor.set(ControlMode.PercentOutput, driveOutput.getTopRightValue());
-      bottomLeftMotor.set(ControlMode.PercentOutput, driveOutput.getBottomLeftValue() * 0.8);
-      bottomRightMotor.set(ControlMode.PercentOutput, driveOutput.getBottomRightValue() * 0.8);
+      bottomLeftMotor.set(ControlMode.PercentOutput, driveOutput.getBottomLeftValue());
+      bottomRightMotor.set(ControlMode.PercentOutput, driveOutput.getBottomRightValue());
 
       
       prevAngle = getGyroAngle(); //Stores previous angle
@@ -213,7 +213,7 @@ public class Drivetrain extends Subsystem implements ISubsystem{
   public void followTrajectory(boolean reverse)
   {
 
-    Output driveOutput = motionProfile.getNextDriveSignal(reverse, topLeftMotor.getSelectedSensorPosition(), topRightMotor.getSelectedSensorPosition(), gyro.getAngle(), false);
+    Output driveOutput = motionProfile.getNextDriveSignal(reverse, getLeftEncoder(), getRightEncoder(), gyro.getAngle(), false);
 
     double velocityLeft = UnitConverter.metersPerSecondToTalonUnits(driveOutput.getLeftValue(), Constants.wheelDiameter, Constants.ticksPerRotation);
     double velocityRight = UnitConverter.metersPerSecondToTalonUnits(driveOutput.getRightValue(), Constants.wheelDiameter, Constants.ticksPerRotation);
@@ -234,6 +234,32 @@ public class Drivetrain extends Subsystem implements ISubsystem{
   public boolean isPathPercentDone(double percentage)
   {
       return percentage <= percentagePathFinished();
+  }
+
+
+  public void loadTrajectoryPathfinder(Waypoint[] path, boolean reverse)
+  {
+      double leftEncoder = (topLeftMotor.getSelectedSensorPosition() + bottomLeftMotor.getSelectedSensorVelocity()) / 2;
+      double rightEncoder = (topRightMotor.getSelectedSensorPosition() + bottomRightMotor.getSelectedSensorVelocity()) / 2;
+      motionProfile.loadTrajectoryPathfinder(path, reverse, (int)leftEncoder, (int)rightEncoder, getGyroAngle());
+  }
+
+  public void followTrajectoryPathfinder(boolean reverse)
+  {
+      double leftEncoder = (topLeftMotor.getSelectedSensorPosition() + bottomLeftMotor.getSelectedSensorVelocity()) / 2;
+      double rightEncoder = (topRightMotor.getSelectedSensorPosition() + bottomRightMotor.getSelectedSensorVelocity()) / 2;
+
+    Output driveOutput = motionProfile.followTrajectoryPathfinder(reverse, (int)leftEncoder, (int)rightEncoder, gyro.getAngle());
+
+    topLeftMotor.set(ControlMode.PercentOutput, driveOutput.getTopLeftValue());
+    topRightMotor.set(ControlMode.PercentOutput, driveOutput.getTopRightValue());
+    bottomLeftMotor.set(ControlMode.PercentOutput, driveOutput.getBottomLeftValue());
+    bottomRightMotor.set(ControlMode.PercentOutput, driveOutput.getBottomRightValue());
+  }
+
+  public boolean isPathFinishedPathfinder()
+  {
+      return motionProfile.isPathfinderPathDone();
   }
 
 
