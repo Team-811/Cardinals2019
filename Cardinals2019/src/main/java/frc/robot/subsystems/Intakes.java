@@ -49,6 +49,7 @@ public class Intakes extends Subsystem implements ISubsystem{
   private DigitalInput limitSwitch;
 
   private DoubleSolenoid cargoPiston;
+  private boolean cargoIsDown;
   private TalonSRX cargoMotor;
   private AnalogInput distanceSensor;
 
@@ -59,6 +60,7 @@ public class Intakes extends Subsystem implements ISubsystem{
       limitSwitch = new DigitalInput(RobotMap.INTAKE_LIMIT_SWITCH);
 
       cargoPiston = new DoubleSolenoid(RobotMap.INTAKE_CARGO_PISTON_FORWARD, RobotMap.INTAKE_CARGO_PISTON_REVERSE);
+      cargoIsDown = false;
       cargoMotor = new TalonSRX(RobotMap.INTAKE_CARGO_MOTOR);
       cargoMotor.setInverted(true);
       distanceSensor = new AnalogInput(RobotMap.INTAKE_DISTANCE_SENSOR);
@@ -100,13 +102,19 @@ public class Intakes extends Subsystem implements ISubsystem{
    public void bringUpCargoIntake()
   {
       cargoPiston.set(DoubleSolenoid.Value.kReverse);
+      cargoIsDown = false;
   }
 
    public void dropCargoIntake()
   {
       cargoPiston.set(DoubleSolenoid.Value.kForward);
+      cargoIsDown = true;
   }
 
+  public boolean isCargoIntakeDown()
+ {
+    return cargoIsDown;
+ }
    public void intakeCargo()
   {
       cargoMotor.set(ControlMode.PercentOutput, 0.6);

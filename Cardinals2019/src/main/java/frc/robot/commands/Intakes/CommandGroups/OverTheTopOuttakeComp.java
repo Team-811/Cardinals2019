@@ -41,9 +41,7 @@ public class OverTheTopOuttakeComp extends CommandGroup {
     addSequential(new DropCargoIntake());
     //Pulse the motors a few times and bring the ball over the top
     addSequential(new Unjam());
-    addSequential(new TimerCommand(0.2));
-    addSequential(new Unjam());
-    addSequential(new TimerCommand(1.6));
+    addSequential(new TimerCommand(1.7));
     //Punch the ball
     addSequential(new ExtendHatchIntake());
     addSequential(new TimerCommand(0.15));

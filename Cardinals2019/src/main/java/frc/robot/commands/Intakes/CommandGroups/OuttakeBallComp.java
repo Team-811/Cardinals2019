@@ -40,10 +40,11 @@ public class OuttakeBallComp extends CommandGroup {
     addSequential(new DropCargoIntake());
     
     addSequential(new ReleaseCargo());
-    addSequential(new TimerCommand(2));
+    addSequential(new TimerCommand(1.2));
     addSequential(new StopCargo());
     addSequential(new ReleaseHatch());
     addSequential(new BringUpCargoIntake());
+
     addSequential(new RedFlame());
   }
 }

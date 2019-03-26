@@ -33,7 +33,7 @@ public class Climber extends Subsystem implements ISubsystem{
   }
 
   private CANSparkMax armMotor;
-  private CANSparkMax stiltMotor;
+  private TalonSRX stiltMotor;
   private TalonSRX wheelMotor;
 
   private DigitalInput armLimitSwitch;
@@ -46,7 +46,7 @@ public class Climber extends Subsystem implements ISubsystem{
   {
 
     armMotor = new CANSparkMax(RobotMap.CLIMBER_ARM_MOTOR, MotorType.kBrushless);
-    stiltMotor = new CANSparkMax(RobotMap.CLIMBER_STILT_MOTOR, MotorType.kBrushless);
+    stiltMotor = new TalonSRX(RobotMap.CLIMBER_STILT_MOTOR);
     wheelMotor = new TalonSRX(RobotMap.CLIMBER_WHEEL_MOTOR); 
 
     armMotor.setInverted(false);
@@ -54,7 +54,7 @@ public class Climber extends Subsystem implements ISubsystem{
     wheelMotor.setInverted(false);
 
     armMotor.setIdleMode(IdleMode.kBrake);
-    stiltMotor.setIdleMode(IdleMode.kBrake);
+    stiltMotor.setNeutralMode(NeutralMode.Brake);
     wheelMotor.setNeutralMode(NeutralMode.Brake);
 
     armLimitSwitch = new DigitalInput(RobotMap.CLIMBER_ARM_LIMIT_SWITCH);
@@ -78,7 +78,7 @@ public class Climber extends Subsystem implements ISubsystem{
 
   public void setStiltMotor(double value)
   {
-    stiltMotor.set(value);
+    stiltMotor.set(ControlMode.PercentOutput, value);
       
   }
 
@@ -92,16 +92,16 @@ public class Climber extends Subsystem implements ISubsystem{
   {
       double motorCorrection = gyro.getPitch() * 0.04;
 
-      armMotor.set(value - motorCorrection);
-      stiltMotor.set(value + motorCorrection);
+      setArmMotor(value - motorCorrection);
+      setStiltMotor(value + motorCorrection);
   }
 
   public void stopClimbUp()
   {
-    armMotor.set(0);
-    stiltMotor.set(0);
+    setArmMotor(0);
+    setStiltMotor(0);
   }
-
+/*
   public boolean getArmSwitchAtZero() {
     return armLimitSwitch.get() && armMotor.getEncoder().getPosition() < 200;
   }
@@ -125,7 +125,7 @@ public class Climber extends Subsystem implements ISubsystem{
   public boolean getHabSwitch() {
     return habLimitSwitch.get();
   }
-
+*/
   @Override
   public void outputSmartdashboard() 
   {
