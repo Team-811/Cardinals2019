@@ -59,6 +59,8 @@ public class OI {
       driveController = new BobXboxController(0, 0.2, 0.2);
       operatorController = new BobXboxController(1, 0.2, 0.2);
 
+      //Driver
+      
       driveController.rightBumper.whenPressed(new ToggleDriveMode());
       driveController.leftBumper.whileHeld(new SlowMode());
       //driveController.startButton.whenPressed(new TrackVisionTarget());
@@ -66,6 +68,9 @@ public class OI {
       //Drive left joy x axis is defined in the DriveWithJoy command for strafing motion of drivetrain
       //Drive right joy x axis is defined in the DriveWithJoy command for rotation of drivetrain
 
+
+
+      //Operator
 
       operatorController.aButton.whenPressed(new IntakeCargoComp());
       operatorController.bButton.whenPressed(new OverTheTopOuttakeComp());
