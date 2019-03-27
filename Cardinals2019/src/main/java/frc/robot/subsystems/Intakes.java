@@ -117,13 +117,13 @@ public class Intakes extends Subsystem implements ISubsystem{
  }
    public void intakeCargo()
   {
-      cargoMotor.set(ControlMode.PercentOutput, 0.6);
+      cargoMotor.set(ControlMode.PercentOutput, 1);
       
   }
 
    public void releaseCargo()
   {
-      cargoMotor.set(ControlMode.PercentOutput, -0.6);
+      cargoMotor.set(ControlMode.PercentOutput, -1);
   }
 
   public void stopCargo()
