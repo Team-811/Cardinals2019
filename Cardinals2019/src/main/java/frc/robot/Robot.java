@@ -180,10 +180,10 @@ public class Robot extends TimedRobot {
     //Initial Print
     System.out.println("/////////////////////////////////////////////////////");
     System.out.println("***********Robot has now entered test mode***********");
-    System.out.println("*****Warning: Robot will move durig this period*****");
+    System.out.println("*****Warning: Robot will move during this period*****");
     System.out.println("*******Please move out of the way of the Robot*******");
     System.out.println("/////////////////////////////////////////////////////");
-    Timer.delay(10);
+    Timer.delay(5);
 
     //Run tests
     drivetrain.testSubsystem();
