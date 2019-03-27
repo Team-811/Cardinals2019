@@ -8,6 +8,7 @@
 package frc.robot.controllers;
 
 import frc.robot.controllers.Utility.*;
+import frc.robot.commands.Climber.single.MoveRobot;
 import frc.robot.commands.Drivetrain.*;
 import frc.robot.commands.Intakes.CommandGroups.*;
 import frc.robot.commands.Intakes.InstantCommands.*;
@@ -63,7 +64,7 @@ public class OI {
       
       driveController.rightBumper.whenPressed(new ToggleDriveMode());
       driveController.leftBumper.whileHeld(new SlowMode());
-      //driveController.startButton.whenPressed(new TrackVisionTarget());
+      driveController.startButton.whenPressed(new MoveRobot());
       //Drive left joy y axis is defined in the DriveWithJoy command for forward motion of drivetrain
       //Drive left joy x axis is defined in the DriveWithJoy command for strafing motion of drivetrain
       //Drive right joy x axis is defined in the DriveWithJoy command for rotation of drivetrain

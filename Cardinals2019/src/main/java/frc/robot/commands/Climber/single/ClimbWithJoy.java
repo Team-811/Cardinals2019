@@ -26,7 +26,7 @@ public class ClimbWithJoy extends Command {
   @Override
   protected void execute() {
     Robot.climber.setArmMotor(-Robot.controllers.operatorController.leftStick.getY());
-    Robot.climber.setArmMotor(-Robot.controllers.operatorController.rightStick.getX());
+    Robot.climber.setStiltMotor(-Robot.controllers.operatorController.rightStick.getX());
   }
 
   // Make this return true when this Command no longer needs to run execute()

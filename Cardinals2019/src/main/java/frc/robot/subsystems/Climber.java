@@ -18,6 +18,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.Climber.single.*;
 
 /**
  * This is a subsystem class.  A subsystem interacts with the hardware components on the robot.
@@ -155,5 +156,6 @@ public class Climber extends Subsystem implements ISubsystem{
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new ClimbWithJoy());
   }
 }
