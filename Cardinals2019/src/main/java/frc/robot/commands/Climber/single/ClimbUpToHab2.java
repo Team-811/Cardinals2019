@@ -31,7 +31,7 @@ public class ClimbUpToHab2 extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.climber.getArmSwitchAtZero() && Robot.climber.getStiltSwitchHab2();
+    return true;//Robot.climber.getArmSwitchAtZero() && Robot.climber.getStiltSwitchHab2();
   }
 
   // Called once after isFinished returns true
