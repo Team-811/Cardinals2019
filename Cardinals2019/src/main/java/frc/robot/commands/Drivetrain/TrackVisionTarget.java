@@ -20,7 +20,7 @@ public class TrackVisionTarget extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.drivetrain.setPIDGoals(0, 0, 90);
+    Robot.drivetrain.setPIDGoals(0, 1, 0);
   }
 
   // Called repeatedly when this Command is scheduled to run

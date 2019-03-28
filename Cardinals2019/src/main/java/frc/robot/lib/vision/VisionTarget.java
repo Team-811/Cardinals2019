@@ -7,6 +7,13 @@
 
 package frc.robot.lib.vision;
 
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SerialPort;
+
+
+
+
 /**
  * This class is used to store information about a vision targets.  A target will include an offset, a distance, and an angle for locating the target
  */
@@ -16,6 +23,7 @@ public class VisionTarget
     private double distance; //In meters
     private double angle; //In radians
 
+    private AHRS gyro = new AHRS(SerialPort.Port.kMXP);
     //Constructors
     public VisionTarget()
     {
@@ -24,11 +32,11 @@ public class VisionTarget
         angle = 0;
     }
 
-    public VisionTarget(double metersOffCenter, double metersDistance, double angleInRadians)
+    public VisionTarget(double metersOffCenter, double metersDistance)
     {
         offCenter = metersOffCenter;
         distance = metersDistance;
-        angle = angleInRadians;
+        angle = gyro.getAngle();
     }
 
 
