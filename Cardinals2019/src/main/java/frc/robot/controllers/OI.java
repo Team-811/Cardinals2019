@@ -100,8 +100,8 @@ public class OI {
       driveController.rightBumper.whenPressed(new ToggleDriveMode());
       driveController.leftBumper.whileHeld(new SlowMode());
       driveController.startButton.whenPressed(new MoveRobot());
-      driveController.leftTriggerButton.whenPressed(new PlaceHatchComp());
-      driveController.rightTriggerButton.whenPressed(new AquireHatchComp());
+      driveController.leftTriggerButton.whenPressed(new AquireHatchComp());
+      driveController.rightTriggerButton.whenPressed(new PlaceHatchComp());
       //Drive left joy y axis is defined in the DriveWithJoy command for forward motion of drivetrain
       //Drive left joy x axis is defined in the DriveWithJoy command for strafing motion of drivetrain
       //Drive right joy x axis is defined in the DriveWithJoy command for rotation of drivetrain
