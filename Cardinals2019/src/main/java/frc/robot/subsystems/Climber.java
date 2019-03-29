@@ -58,9 +58,9 @@ public class Climber extends Subsystem implements ISubsystem{
     stiltMotor.setNeutralMode(NeutralMode.Brake);
     wheelMotor.setNeutralMode(NeutralMode.Brake);
 
-    armLimitSwitch = new DigitalInput(RobotMap.CLIMBER_ARM_LIMIT_SWITCH);
-    stiltLimitSwitch = new DigitalInput(RobotMap.CLIMBER_STILT_LIMIT_SWITCH);
-    habLimitSwitch = new DigitalInput(RobotMap.CLIMBER_HAB_LIMIT_SWITCH);
+    //armLimitSwitch = new DigitalInput(RobotMap.CLIMBER_ARM_LIMIT_SWITCH);
+    //stiltLimitSwitch = new DigitalInput(RobotMap.CLIMBER_STILT_LIMIT_SWITCH);
+    //habLimitSwitch = new DigitalInput(RobotMap.CLIMBER_HAB_LIMIT_SWITCH);
 
     Drivetrain drivetrain = Drivetrain.getInstance(); //Only used to get gyro instance
     gyro = drivetrain.getGyro();
