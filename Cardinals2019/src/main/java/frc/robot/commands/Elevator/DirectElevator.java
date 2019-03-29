@@ -25,7 +25,7 @@ public class DirectElevator extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.elevator.directJoyControl(-Robot.controllers.operatorController.rightStick.getY());
+    Robot.elevator.directJoyControl(Robot.controllers.operatorController.triggers.getTwist());
   }
 
   // Make this return true when this Command no longer needs to run execute()

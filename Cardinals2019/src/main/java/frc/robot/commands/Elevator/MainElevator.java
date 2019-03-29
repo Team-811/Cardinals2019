@@ -25,7 +25,7 @@ public class MainElevator extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.elevator.setPositionWithJoy(-Robot.controllers.operatorController.rightStick.getY());
+    Robot.elevator.setPositionWithJoy(Robot.controllers.operatorController.triggers.getTwist());
     Robot.elevator.runMotionMagic();
     Robot.elevator.checkMotionMagicTermination();
   }
