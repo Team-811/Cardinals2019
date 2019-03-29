@@ -21,7 +21,7 @@ public class MoveRobot extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.climber.setWheelMotor(0.4);
+    Robot.climber.setWheelMotor(0.6);
     Robot.drivetrain.DriveWithJoy(-0.5, 0, 0);
   }
 
