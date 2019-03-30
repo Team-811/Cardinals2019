@@ -79,12 +79,12 @@ public class Intakes extends Subsystem implements ISubsystem{
 
    public void grabHatch()
   {
-      hatchPiston.set(DoubleSolenoid.Value.kForward);
+      hatchPiston.set(DoubleSolenoid.Value.kReverse);
   }
 
    public void releaseHatch()
   {
-      hatchPiston.set(DoubleSolenoid.Value.kReverse);
+      hatchPiston.set(DoubleSolenoid.Value.kForward);
   }
 
   public boolean hasHatch()
@@ -101,13 +101,13 @@ public class Intakes extends Subsystem implements ISubsystem{
    //Cargo Intake Methods
    public void bringUpCargoIntake()
   {
-      cargoPiston.set(DoubleSolenoid.Value.kReverse);
+      cargoPiston.set(DoubleSolenoid.Value.kForward);
       cargoIsDown = false;
   }
 
    public void dropCargoIntake()
   {
-      cargoPiston.set(DoubleSolenoid.Value.kForward);
+      cargoPiston.set(DoubleSolenoid.Value.kReverse);
       cargoIsDown = true;
   }
 

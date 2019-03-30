@@ -51,7 +51,7 @@ public class Climber extends Subsystem implements ISubsystem{
     wheelMotor = new TalonSRX(RobotMap.CLIMBER_WHEEL_MOTOR); 
 
     armMotor.setInverted(false);
-    stiltMotor.setInverted(false);
+    stiltMotor.setInverted(true);
     wheelMotor.setInverted(false);
 
     armMotor.setIdleMode(IdleMode.kBrake);

@@ -41,8 +41,8 @@ public class RobotMap {
   public static final int INTAKE_LIMIT_SWITCH = 3;
 
     //Cargo
-  public static final int INTAKE_CARGO_PISTON_FORWARD = 2;
-  public static final int INTAKE_CARGO_PISTON_REVERSE = 3;
+  public static final int INTAKE_CARGO_PISTON_FORWARD = 3;
+  public static final int INTAKE_CARGO_PISTON_REVERSE = 2;
   public static final int INTAKE_CARGO_MOTOR = 4;
   public static final int INTAKE_DISTANCE_SENSOR = 0;
 
