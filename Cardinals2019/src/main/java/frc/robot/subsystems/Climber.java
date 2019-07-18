@@ -60,7 +60,6 @@ public class Climber extends Subsystem implements ISubsystem{
 
     armLimitSwitch = new DigitalInput(RobotMap.CLIMBER_ARM_LIMIT_SWITCH);
     stiltLimitSwitch = new DigitalInput(RobotMap.CLIMBER_STILT_LIMIT_SWITCH);
-    habLimitSwitch = new DigitalInput(RobotMap.CLIMBER_HAB_LIMIT_SWITCH);
 
     Drivetrain drivetrain = Drivetrain.getInstance(); //Only used to get gyro instance
     gyro = drivetrain.getGyro();
@@ -74,13 +73,14 @@ public class Climber extends Subsystem implements ISubsystem{
   public void setArmMotor(double value)
   {
     armMotor.set(value);
-      
   }
 
   public void setStiltMotor(double value)
   {
+    if(getStiltAtBottom() && value > 0)
+    {}
+    else
     stiltMotor.set(ControlMode.PercentOutput, value);
-      
   }
 
   public void setWheelMotor(double rotation)
@@ -102,6 +102,7 @@ public class Climber extends Subsystem implements ISubsystem{
     setArmMotor(0);
     setStiltMotor(0);
   }
+
 /*
   public boolean getArmSwitchAtZero() {
     return armLimitSwitch.get() && armMotor.getEncoder().getPosition() < 200;
@@ -110,23 +111,13 @@ public class Climber extends Subsystem implements ISubsystem{
   public boolean getArmSwitchAtBottom() {
     return armLimitSwitch.get() && armMotor.getEncoder().getPosition() > 200;
   }
-
-  public boolean getStiltSwitchZero() {
-    return stiltLimitSwitch.get() && stiltMotor.getEncoder().getPosition() < 200;
-  }
-
-  public boolean getStiltSwitchHab2() {
-    return stiltLimitSwitch.get() && stiltMotor.getEncoder().getPosition() > 200 && stiltMotor.getEncoder().getPosition() < 400;
-  }
-
-  public boolean getStiltSwitchHab3() {
-    return stiltLimitSwitch.get() && stiltMotor.getEncoder().getPosition() > 400;
-  }
-
-  public boolean getHabSwitch() {
-    return habLimitSwitch.get();
-  }
 */
+
+  public boolean getStiltAtBottom() {
+    return stiltLimitSwitch.get();
+  }
+
+
   @Override
   public void outputSmartdashboard() 
   {

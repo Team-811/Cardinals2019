@@ -10,7 +10,7 @@ package frc.robot.lib.vision;
 import frc.robot.lib.geometry.Rotation2d;
 
 /**
- * Add your docs here.
+ * This gives information about the location of a vision target based on the distance from the robot to the goal and the angle from the robot to the goal
  */
 public class AimingParameters {
     double range;

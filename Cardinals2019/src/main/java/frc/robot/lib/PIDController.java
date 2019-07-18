@@ -11,7 +11,7 @@ package frc.robot.lib;
  * This class contains a pid controller.  A PID controller essentialy helps a mechanism go to a certain position by 
  * slowing the the mechanism down as it approaches the goal.  The P gain controls how fast you approach the object.
  * The I gain controls how much you want to boost the mechanism if it cant quite reach the desired position.  
- * The D gains dampens the mechanism if it oscilates around the goal.
+ * The D gain dampens the mechanism if it oscilates around the goal.
  *
  */
 

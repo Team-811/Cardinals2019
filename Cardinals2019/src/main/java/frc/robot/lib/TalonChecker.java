@@ -17,7 +17,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Add your docs here.
+ * This class is used to test whether talons are working or not.  There are two modes, a non encoder and encoder mode.  The non encoder looks at just the current 
+ * and the encoder version looks at current, RPM, and sensor phase.  It will first check if the sensor is even present before actually moving the motor.
  */
 public class TalonChecker 
 {

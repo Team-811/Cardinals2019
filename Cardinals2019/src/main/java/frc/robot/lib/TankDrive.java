@@ -8,7 +8,7 @@
 package frc.robot.lib;
 
 /**
- * This class contains different contol modes for a tank drivetrain(a set of wheels or tank treads that are chained together
+ * This class contains different contol modes for a tank drivetrain (a set of wheels or tank treads that are chained together
  * to control the left and right side of the drivetrain only).  Each method takes in parameters like forward movement, rotation, 
  * etc and then calculates what value each motor in the drivetrain is set to.  The control modes that a tank drivetrain has 
  * are tank drive, arcade drive, and curvature drive.
@@ -18,7 +18,7 @@ public class TankDrive
 {
     private Output driveOutput;
 
-    //used to invert all drive modes  
+    //used to invert all drive modes (contains either 1 or -1) 
     private int forwardBackwardInvert;
     private int rotationInvert;
 
@@ -29,8 +29,9 @@ public class TankDrive
         forwardBackwardInvert = 1;
         rotationInvert = 1;
     }
-
-    public Output tankMecanumDrive(double leftValue, double rightValue)
+    
+    //This drive mode uses one joystick for each side of wheels (to go straight, you need to push both joysticks forward)
+    public Output tankDrive(double leftValue, double rightValue)
     {
         //First invert all the values if needed before doing the motor output calculations
         leftValue = leftValue * forwardBackwardInvert;
@@ -41,8 +42,8 @@ public class TankDrive
         return driveOutput;
     }
 
-
-    public Output arcadeMecanumDrive(double forwardValue, double rotationValue)
+    //This drive mode uses one joystick for forward and backward travel and the other for turning (to go straight, you need to push one joystick forward)
+    public Output arcadeDrive(double forwardValue, double rotationValue)
     {
         //First invert all the values if needed before doing the motor output calculations
         forwardValue = forwardValue * forwardBackwardInvert;
@@ -58,6 +59,7 @@ public class TankDrive
     }
 
     //TODO
+    //This drive mode is like arcade but the turn joystick controls the curvature of the robot and not the turn rate (is not working)
     public Output curvatureMecanumDrive(double forwardValue, double rotationValue, boolean isQuickTurn, boolean isHighGear, double strafeValue, double deadbandValue)
     {
         double m_quickStopThreshold = 0.2;
@@ -126,14 +128,40 @@ public class TankDrive
         return driveOutput;
     }
 
+    //Inversion methods
+    public void invertForwardBackward(boolean inverted)
+    {
+        if(inverted)
+        {
+            forwardBackwardInvert = -1;
+        }
+        else
+        {
+            forwardBackwardInvert = 1;
+        }
+    }
+
+    public void invertRotation(boolean inverted)
+    {
+        if(inverted)
+        {
+            rotationInvert = -1;
+        }
+        else
+        {
+            rotationInvert = 1;
+        }
+    }
 
 
-  private double handleDeadband(double val, double deadband) {
+    //this function will make a number zero if it does not pass a certain threshold, used to prevent small outputs getting through and damaging motors
+    private double handleDeadband(double val, double deadband) {
       return (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
-  }
+    }
 
-  private double limit(double input, double limit)
-  {
+    //this function limits an input between a certain range, used to keeep motor outputs between 1 and -1
+    private double limit(double input, double limit)
+    {
       if(input > limit )
       {
           return limit;
@@ -146,5 +174,5 @@ public class TankDrive
       {
           return input;
       }
-  }
+    }
 }

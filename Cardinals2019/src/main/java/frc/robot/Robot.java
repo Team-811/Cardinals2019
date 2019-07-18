@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+  
   public static Drivetrain drivetrain;
   public static Intakes intakes;
   public static Climber climber;
@@ -46,6 +47,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    //initialize all the subsystems
+    //Retrieves the instance from the class to make sure there arent 2 drivetrains etc
     drivetrain = Drivetrain.getInstance();
     intakes = Intakes.getInstance();
     climber = Climber.getInstance();
@@ -65,13 +68,15 @@ public class Robot extends TimedRobot {
     camera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 30);
 
     //Start threads
+    //Threads are used for leds, vision, and position tracker so they dont overload the main robot program
     Thread updateThread = new Thread(new RunUpdater());
     updateThread.start();
 
 
-    //Robot.intakes.releaseHatch();
+    //Presets the cargo intake to the up position
     Robot.intakes.bringUpCargoIntake();
 
+    //Presets the LEDs to play the flame patten
     led.setLEDs(9); //Red Flame
 
     
@@ -175,6 +180,9 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 
+  /**
+   * This function is called once when the robot is enabled in test mode
+   */
   @Override
   public void testInit() {
     //Initial Print
