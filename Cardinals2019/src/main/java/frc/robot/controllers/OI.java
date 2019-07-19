@@ -100,8 +100,8 @@ public class OI {
       driveController.rightBumper.whenPressed(new ToggleDriveMode());
       driveController.leftBumper.whileHeld(new SlowMode());
       driveController.startButton.whileHeld(new MoveRobot());
-      driveController.leftTriggerButton.whenPressed(new PlaceHatchComp());
-      driveController.rightTriggerButton.whenPressed(new AquireHatchComp());
+      driveController.leftTriggerButton.whenPressed(new AquireHatchComp());
+      driveController.rightTriggerButton.whenPressed(new PlaceHatchComp());
       //Drive left joy y axis is defined in the DriveWithJoy command for forward motion of drivetrain
       //Drive left joy x axis is defined in the DriveWithJoy command for strafing motion of drivetrain
       //Drive right joy x axis is defined in the DriveWithJoy command for rotation of drivetrain
@@ -117,6 +117,7 @@ public class OI {
       operatorController.rightBumper.whenPressed(new OverTheTopOuttakeComp());
       operatorController.leftBumper.whenPressed(new OuttakeBallComp());
       operatorController.startButton.whenPressed(new IntakeCargoComp());
+      operatorController.selectButton.whenPressed(new ResetIntake());
       //Operator trigger twist is defined in default elevator command for manual elevator position
       //Operator left joy y axis is defined in the ClimbWithJoy command for arm motor
       //Operator right joy y axis is defined in the ClimbWithJoy command for stilt motor

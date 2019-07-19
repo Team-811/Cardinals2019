@@ -8,15 +8,14 @@
 package frc.robot.commands.Intakes.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.Utility.*;
 import frc.robot.commands.Intakes.InstantCommands.*;
-import frc.robot.commands.LED.*;
+import frc.robot.commands.Utility.*;
 
-public class PlaceHatchComp extends CommandGroup {
+public class ResetIntake extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public PlaceHatchComp() {
+  public ResetIntake() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -34,13 +33,12 @@ public class PlaceHatchComp extends CommandGroup {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
 
-    addSequential(new RedYellowSnake());
-    addSequential(new ExtendHatchIntake());
-    addSequential(new TimerCommand(0.25));
     addSequential(new ReleaseHatch());
-    addSequential(new TimerCommand(0.25));
+    addSequential(new TimerCommand(0.1));
     addSequential(new RetractHatchIntake());
-    addSequential(new RedFlame());
+    addSequential(new TimerCommand(0.1));
+    addSequential(new StopCargo());
+    addSequential(new BringUpCargoIntake());
 
   }
 }

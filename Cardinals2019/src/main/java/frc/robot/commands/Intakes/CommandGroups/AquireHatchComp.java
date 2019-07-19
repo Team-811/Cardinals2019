@@ -42,9 +42,9 @@ public class AquireHatchComp extends CommandGroup {
     //Sequence to grab hatch
     addSequential(new ExtendHatchIntake());
     addSequential(new ReleaseHatch());
-    addSequential(new TimerCommand(0.2));
+    addSequential(new TimerCommand(0.25));
     addSequential(new GrabHatch());
-    addSequential(new TimerCommand(0.2));
+    addSequential(new TimerCommand(0.25));
     addSequential(new RetractHatchIntake());
     //set default led
     addSequential(new RedFlame());

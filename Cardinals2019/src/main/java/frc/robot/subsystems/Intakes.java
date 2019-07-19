@@ -133,7 +133,7 @@ public class Intakes extends Subsystem implements ISubsystem{
 
   public boolean hasCargo()
   {
-      if(distanceSensor.getVoltage() > 0.829)  //Any object that is 7cm or closer will produce 0.8V or more
+      if(distanceSensor.getVoltage() > 0.520)  //Any object that is 7cm or closer will produce 0.8V or more
         return true;
       else
         return false;
