@@ -47,8 +47,5 @@ public class MoveRobot extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    
-    Robot.climber.setWheelMotor(0);
-    Robot.drivetrain.DriveWithJoy(0, 0, 0);
   }
 }

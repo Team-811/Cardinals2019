@@ -31,6 +31,7 @@ public class MecanumDrive
         strafingInvert = 1;
     }
 
+    //This drive mode uses one joystick for each side of wheels (to go straight, you need to push both joysticks forward)
     public Output tankMecanumDrive(double leftValue, double rightValue, double strafeValue)
     {
         //First invert all the values if needed before doing the motor output calculations
@@ -48,6 +49,7 @@ public class MecanumDrive
         return driveOutput;
     }
 
+    //This drive mode uses one joystick for forward and backward travel and the other for turning (to go straight, you need to push one joystick forward)
     public Output arcadeMecanumDrive(double forwardValue, double rotationValue, double strafeValue)
     {
         //First invert all the values if needed before doing the motor output calculations
@@ -67,6 +69,7 @@ public class MecanumDrive
     }
 
     //TODO
+    //This drive mode is like arcade but the turn joystick controls the curvature of the robot and not the turn rate (is not working)
     public Output curvatureMecanumDrive(double forwardValue, double rotationValue, boolean isQuickTurn, boolean isHighGear, double strafeValue, double deadbandValue)
     {
         double m_quickStopThreshold = 0.2;
@@ -140,7 +143,7 @@ public class MecanumDrive
     }
 
 
-     
+    //This drive mode is like arcade, but the forward backward travel is with respect to the field and not the robot
     public Output fieldOrientedDrive(double forwardValue, double rotationValue, double strafeValue, double gyroAngle)
     {
         //First invert all the values if needed before doing the motor output calculations
@@ -203,11 +206,12 @@ public class MecanumDrive
         }
     }
 
-
+    //this function will make a number zero if it does not pass a certain threshold, used to prevent small outputs getting through and damaging motors
     private double handleDeadband(double val, double deadband) {
         return (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
     }
 
+    //this function limits an input between a certain range, used to keeep motor outputs between 1 and -1
     private double handleLimits(double input)
     {
         if(input > 1 )

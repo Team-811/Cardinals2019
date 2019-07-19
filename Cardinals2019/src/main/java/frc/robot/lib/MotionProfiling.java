@@ -25,6 +25,11 @@ import java.util.Collections;
  * follow the path.
  */
 
+ /*
+ notes about this class
+ -the trajectory loading from file was not working
+ -ramsete is not working and more difficult to work with
+ */
 public class MotionProfiling 
 {
     private double maxVelocity;
@@ -33,6 +38,7 @@ public class MotionProfiling
     private double maxJerk;
     private double wheelbase;
 
+    //the loop rate this code is running at.  Robot program runs every 20ms
     private final double dt = 0.05;
 
     private Trajectory trajectory;
@@ -84,7 +90,9 @@ public class MotionProfiling
         this.maxJerk = maxJerk;
         this.wheelbase = wheelbase;
 
+        //class used to store the robots x and y position and angle
         odometry = new Odometry();
+
         driveOutput = new Output();
         
     }
@@ -133,6 +141,7 @@ public class MotionProfiling
 
         TankModifier modifier = new TankModifier(trajectory);
         
+        //this is reversal code from 2018 which is to flip flop the left right trajectories and the encoders always read positive
         if(!reverse) {
             leftFollower = new EncoderFollower(modifier.getLeftTrajectory());
             rightFollower = new EncoderFollower(modifier.getRightTrajectory());
@@ -153,7 +162,7 @@ public class MotionProfiling
     }
 
 
-
+    //This function is used to invert a trajectory
     private Trajectory reversePath(Trajectory original){
         ArrayList<Segment> segments = new ArrayList<>(Arrays.asList(original.segments));
         Collections.reverse(segments);
@@ -285,7 +294,8 @@ public class MotionProfiling
 
         if(reverse)
             inverted = -1;
-		
+        
+        //
 		int leftEncoderPosition = leftEncoderStartingPosition
 				+ Math.abs(leftEncoderStartingPosition - leftEncoderRaw);
 		int rightEncoderPosition = rightEncoderStartingPosition
