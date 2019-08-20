@@ -18,6 +18,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
+/**
+ * The RobotState class is in charge of keeping a record of the robot's position over time.  It is used for vision tracking for lag compensation.  This code was created
+ * by team 254 and was edited to fit the code of our robot.
+ */
+
 public class RobotState {
     private static RobotState instance_ = new RobotState();
 

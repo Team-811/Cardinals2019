@@ -8,7 +8,8 @@ import frc.robot.Constants;
 
 /**
  * Provides forward and inverse kinematics equations for the robot modeling the wheelbase as a differential drive (with
- * a corrective factor to account for skidding).
+ * a corrective factor to account for skidding).  This code was created by team 254 and was edited to fit our robot.  This is used in
+ * the robotState class to help calculate robot position
  */
 
 public class Kinematics {

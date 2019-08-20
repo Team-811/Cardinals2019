@@ -17,6 +17,9 @@ import frc.robot.lib.geometry.Translation2d;
  * 
  * @see GoalTracker.java
  */
+
+ //Authored by team 254
+ 
 public class GoalTrack {
     Map<Double, Translation2d> mObservedPositions = new TreeMap<>();
     Translation2d mSmoothedPosition = null;

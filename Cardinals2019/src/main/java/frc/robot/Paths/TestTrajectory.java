@@ -11,7 +11,7 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 
 /**
- * Add your docs here.
+ * This is a trajectory.  It holds a sequence of waypoints for the robot to follow.
  */
 public class TestTrajectory 
 {

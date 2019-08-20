@@ -10,10 +10,13 @@ package frc.robot.commands.Climber.comps;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.Climber.single.*;
 
+/**
+ * This is a command.  A command is used to make actual actions happen on the robot.  It can be a single action or a sequence of actions.  This one is a combination of commands
+ * that make the robot do a complete hab3 climb
+ */
+
 public class Hab3ClimbComp extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
+
   public Hab3ClimbComp() {
     // Add Commands here:
     // e.g. addSequential(new Command1());

@@ -10,6 +10,11 @@ import frc.robot.commands.RobotStateEstimator.*;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ *This is a subsystem class.  A subsystem interacts with the hardware components on the robot.  This class uses the RobotState class to keep record of the robots position
+ over time.  This was written by team 254
+ */
+
 public class RobotStateEstimator extends Subsystem {
 
     private static RobotStateEstimator instance = new RobotStateEstimator();

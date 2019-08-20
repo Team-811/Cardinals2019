@@ -23,7 +23,8 @@ import java.util.List;
 import java.net.DatagramPacket;
 
 /**
- * This is a subsystem class.  A subsystem interacts with the hardware components on the robot.
+ * This is a subsystem class.  A subsystem interacts with the hardware components on the robot.  The vision subsystem takes in data from the rasp pi which does the vision 
+ * processing and adds targets to the VisionList which keeps a list of vision targets and information about the targets.
  */
 public class Vision extends Subsystem implements ISubsystem {
   // Put methods for controlling this subsystem

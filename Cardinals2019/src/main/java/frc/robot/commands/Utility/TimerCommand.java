@@ -10,7 +10,8 @@ package frc.robot.commands.Utility;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
- * Add your docs here.
+ * This is a command.  A command is used to make actual actions happen on the robot.  It can be a single action or a sequence of actions.  This command in particular is 
+ * useful because it can be paired with other command that need a time delay betweeen actions
  */
 public class TimerCommand extends TimedCommand {
   /**

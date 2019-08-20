@@ -12,7 +12,7 @@ import frc.robot.Robot;
 import frc.robot.subsystems.Elevator.Positions;
 
 /**
- * Add your docs here.
+ * This is a command.  A command is used to make actual actions happen on the robot.  It can be a single action or a sequence of actions.
  */
 public class GoToBottom extends InstantCommand {
   /**

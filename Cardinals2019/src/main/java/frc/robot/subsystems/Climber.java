@@ -21,7 +21,9 @@ import frc.robot.RobotMap;
 import frc.robot.commands.Climber.single.*; 
 
 /**
- * This is a subsystem class.  A subsystem interacts with the hardware components on the robot.
+ * This is a subsystem class.  A subsystem interacts with the hardware components on the robot.  This subsystem controls the climber.  The climber consists of 3 motors and two
+ * limit switches.  One motor powers the wheels on the end of the arm to move the robot onto the hab platform when lifted.  One motor powers the arm and there is a limit switch
+ * to prevent it from going too far.  One motor powers the stilts and there is a limit switch to rpevent it from going too far.
  */
 public class Climber extends Subsystem implements ISubsystem{
   // Put methods for controlling this subsystem
