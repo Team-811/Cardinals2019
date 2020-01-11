@@ -57,8 +57,8 @@ public class RobotMap {
   public static final int CLIMBER_ARM_MOTOR = 6;
   public static final int CLIMBER_STILT_MOTOR = 7;
   public static final int CLIMBER_WHEEL_MOTOR = 8;
-  public static final int CLIMBER_ARM_LIMIT_SWITCH = 1;
-  public static final int CLIMBER_STILT_LIMIT_SWITCH = 2;
+  public static final int CLIMBER_ARM_LIMIT_SWITCH = 4;
+  public static final int CLIMBER_STILT_LIMIT_SWITCH = 1;
   public static final int CLIMBER_HAB_LIMIT_SWITCH = 3;
 
 

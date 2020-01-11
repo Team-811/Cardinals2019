@@ -50,7 +50,7 @@ public class Climber extends Subsystem implements ISubsystem{
     stiltMotor = new TalonSRX(RobotMap.CLIMBER_STILT_MOTOR);
     wheelMotor = new TalonSRX(RobotMap.CLIMBER_WHEEL_MOTOR); 
 
-    armMotor.setInverted(false);
+    armMotor.setInverted(true);
     stiltMotor.setInverted(false);
     wheelMotor.setInverted(false);
 
@@ -72,21 +72,39 @@ public class Climber extends Subsystem implements ISubsystem{
 
   public void setArmMotor(double value)
   {
-    armMotor.set(value);
+    if(getArmSwitchAtBottom() && value > 0)
+    {
+      armMotor.set(0);
+    }
+    else
+    {
+      if(value < 0)
+      {
+      armMotor.set(value * .4);
+      }
+      else
+      {
+      armMotor.set(value);
+      }
+    }
   }
 
   public void setStiltMotor(double value)
   {
     if(getStiltAtBottom() && value > 0)
-    {}
+    {
+      stiltMotor.set(ControlMode.PercentOutput, 0);
+    }
     else
-    stiltMotor.set(ControlMode.PercentOutput, value);
+    {
+      stiltMotor.set(ControlMode.PercentOutput, value);
+    }
+    
   }
 
   public void setWheelMotor(double rotation)
   {
-    wheelMotor.set(ControlMode.PercentOutput, rotation);
-      
+      wheelMotor.set(ControlMode.PercentOutput, rotation);
   }
 
   public void levelClimb(double value)
@@ -103,18 +121,14 @@ public class Climber extends Subsystem implements ISubsystem{
     setStiltMotor(0);
   }
 
-/*
-  public boolean getArmSwitchAtZero() {
-    return armLimitSwitch.get() && armMotor.getEncoder().getPosition() < 200;
-  }
 
   public boolean getArmSwitchAtBottom() {
-    return armLimitSwitch.get() && armMotor.getEncoder().getPosition() > 200;
+    return !armLimitSwitch.get();
   }
-*/
+
 
   public boolean getStiltAtBottom() {
-    return stiltLimitSwitch.get();
+    return !stiltLimitSwitch.get();
   }
 
 

@@ -79,12 +79,12 @@ public class Intakes extends Subsystem implements ISubsystem{
 
    public void grabHatch()
   {
-      hatchPiston.set(DoubleSolenoid.Value.kForward);
+      hatchPiston.set(DoubleSolenoid.Value.kReverse);
   }
 
    public void releaseHatch()
   {
-      hatchPiston.set(DoubleSolenoid.Value.kReverse);
+      hatchPiston.set(DoubleSolenoid.Value.kForward);
   }
 
   public boolean hasHatch()
