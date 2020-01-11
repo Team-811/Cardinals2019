@@ -12,7 +12,6 @@ package frc.robot.lib;
  * slowing the the mechanism down as it approaches the goal.  The P gain controls how fast you approach the object.
  * The I gain controls how much you want to boost the mechanism if it cant quite reach the desired position.  
  * The D gain dampens the mechanism if it oscilates around the goal.
- *
  */
 
 public class PIDController {

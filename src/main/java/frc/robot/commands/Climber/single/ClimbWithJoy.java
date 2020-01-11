@@ -10,6 +10,11 @@ package frc.robot.commands.Climber.single;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
+/**
+ * This is a command.  A command is used to make actual actions happen on the robot.  It can be a single action or a sequence of actions.  This one loops to control the climber
+ * with joysticks
+ */
+
 public class ClimbWithJoy extends Command {
   public ClimbWithJoy() {
     // Use requires() here to declare subsystem dependencies

@@ -10,6 +10,11 @@ package frc.robot.commands.Drivetrain;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
+/**
+ * This is a command.  A command is used to make actual actions happen on the robot.  It can be a single action or a sequence of actions.  This one loops to control the 
+ * drivetrain with joysticks
+ */
+
 public class DriveWithJoy extends Command {
   public DriveWithJoy() {
     // Use requires() here to declare subsystem dependencies

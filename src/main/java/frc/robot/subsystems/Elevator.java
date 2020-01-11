@@ -28,7 +28,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * linear lift part of the robot.  The linear lift contains one motor for lifting, an encoder to track the position, and a 
  * limit switch at the bottom to stop the elevator and zero the encoder.  To control the elevator, the motors use motion magic
  * to do on the fly motion profiling.  The joystick control will just change the desired position of the elevator and the 
- * motion magic will move the evelvator to that postion.
+ * motion magic will move the evelvator to that postion.  There is also direct control which makes the motor spin however fast the joystick
+ * is pushed.  Since the encoder for the elevator wasnt working this year only direct control was used.
  */
 
 public class Elevator extends Subsystem implements ISubsystem{

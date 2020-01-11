@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.SerialPort;
 
 /**
- *This is a subsystem class.  A subsystem interacts with the hardware components on the robot.
+ *This is a subsystem class.  A subsystem interacts with the hardware components on the robot.  This subsystem controls the LEDS.  All it does is take in a number for each 
+ *pattern and it will spit that number onto the usb serial port for the arduino to handle
  */
 public class LED extends Subsystem implements ISubsystem{
   // Put methods for controlling this subsystem

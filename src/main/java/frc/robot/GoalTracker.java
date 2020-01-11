@@ -18,6 +18,9 @@ import frc.robot.lib.geometry.Translation2d;
  * 
  * @see GoalTrack.java
  */
+
+ //Authored by team 254
+ 
 public class GoalTracker {
     /**
      * Track reports contain all of the relevant information about a given goal track.

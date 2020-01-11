@@ -15,8 +15,9 @@ import frc.robot.commands.Utility.TimerCommand;
 
 public class IntakeCargoComp extends CommandGroup {
   /**
-   * Add your docs here.
-   */
+ * This is a command.  A command is used to make actual actions happen on the robot.  It can be a single action or a sequence of actions.  This one is a combination of commands
+ * that allows the robot to pick up a ball
+ */
   public IntakeCargoComp() {
     // Add Commands here:
     // e.g. addSequential(new Command1());

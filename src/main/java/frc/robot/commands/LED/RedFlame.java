@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 /**
- * Add your docs here.
+ * This is a command.  A command is used to make actual actions happen on the robot.  It can be a single action or a sequence of actions.  This one changes the LED pattern
  */
 public class RedFlame extends InstantCommand {
   /**
