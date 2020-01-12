@@ -27,19 +27,24 @@ import frc.robot.RobotState;
 import jaci.pathfinder.Waypoint;
 import frc.robot.commands.Drivetrain.*;
 
+import java.io.IOException;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 /**
- * This is a subsystem class.  A subsystem interacts with the hardware components on the robot.  This subsystem deals with the 
- * mecanum drivetrain.  The drivetrain includes 4 motors with encoders on each, an encoder on a dead wheel to track strafing, and 
- * a gyro to measure the angle of the robot.  For controlling the subsystem, there are methods that do field oriented driving with
- * gyro correction for joystick control, PID loops for the vision, and Motion Profiling for auto driving.
+ * This is a subsystem class. A subsystem interacts with the hardware components
+ * on the robot. This subsystem deals with the mecanum drivetrain. The
+ * drivetrain includes 4 motors with encoders on each, an encoder on a dead
+ * wheel to track strafing, and a gyro to measure the angle of the robot. For
+ * controlling the subsystem, there are methods that do field oriented driving
+ * with gyro correction for joystick control, PID loops for the vision, and
+ * Motion Profiling for auto driving.
  */
 
-public class Drivetrain extends Subsystem implements ISubsystem{
+public class Drivetrain extends Subsystem implements ISubsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -68,8 +73,8 @@ public class Drivetrain extends Subsystem implements ISubsystem{
   private double strafeOffset;
   private double rotationOffset;
 
-  //private Encoder strafeEncoder;
-  
+  // private Encoder strafeEncoder;
+
   private double kPForward = 1.2;
   private double kIForward = 0;
   private double kDForward = 0.05;
@@ -92,39 +97,37 @@ public class Drivetrain extends Subsystem implements ISubsystem{
 
   private int kTimeoutMs;
 
-  public Drivetrain()
-  {
-      topLeftMotor = new TalonSRX(RobotMap.DRIVE_TOP_LEFT_MOTOR);
-      topRightMotor = new TalonSRX(RobotMap.DRIVE_TOP_RIGHT_MOTOR);
-      bottomLeftMotor = new TalonSRX(RobotMap.DRIVE_BOTTOM_LEFT_MOTOR);
-      bottomRightMotor = new TalonSRX(RobotMap.DRIVE_BOTTOM_RIGHT_MOTOR);
+  public Drivetrain() {
+    topLeftMotor = new TalonSRX(RobotMap.DRIVE_TOP_LEFT_MOTOR);
+    topRightMotor = new TalonSRX(RobotMap.DRIVE_TOP_RIGHT_MOTOR);
+    bottomLeftMotor = new TalonSRX(RobotMap.DRIVE_BOTTOM_LEFT_MOTOR);
+    bottomRightMotor = new TalonSRX(RobotMap.DRIVE_BOTTOM_RIGHT_MOTOR);
 
-      //strafeEncoder = new Encoder(RobotMap.DRIVE_STRAFE_ENCODER_ACHANNEL, RobotMap.DRIVE_STRAFE_ENCODER_BCHANNEL);
+    // strafeEncoder = new Encoder(RobotMap.DRIVE_STRAFE_ENCODER_ACHANNEL,
+    // RobotMap.DRIVE_STRAFE_ENCODER_BCHANNEL);
 
-      robot_state_ = RobotState.getInstance();
+    robot_state_ = RobotState.getInstance();
 
-      configureTalons();
+    configureTalons();
 
-      gyro = new AHRS(SerialPort.Port.kMXP);
-      gyro.reset();
-      invertGyro(false);
+    gyro = new AHRS(SerialPort.Port.kMXP);
+    gyro.reset();
+    invertGyro(false);
 
-      zeroEncoders();
+    zeroEncoders();
 
-      drivetrain = new MecanumDrive();
-      motionProfile = new MotionProfiling(Constants.maxVelocity, Constants.maxAcceleration, Constants.maxJerk, Constants.wheelbase);
-      configurePID();
-      
+    drivetrain = new MecanumDrive();
+    motionProfile = new MotionProfiling(Constants.maxVelocity, Constants.maxAcceleration, Constants.maxJerk,
+        Constants.wheelbase);
+    configurePID();
 
-      drivetrain.invertForwardBackward(false);
-      drivetrain.invertStrafing(true);
-      drivetrain.invertRotation(false);
+    drivetrain.invertForwardBackward(false);
+    drivetrain.invertStrafing(true);
+    drivetrain.invertRotation(false);
   }
 
-
-  public enum DriveMode{
-    Arcade(),
-    FieldOriented();
+  public enum DriveMode {
+    Arcade(), FieldOriented();
   }
 
   private DriveMode mode = DriveMode.Arcade;
@@ -137,9 +140,8 @@ public class Drivetrain extends Subsystem implements ISubsystem{
     this.mode = newMode;
   }
 
-  public void toggleDriveMode()
-  {
-    if(mode == DriveMode.Arcade)
+  public void toggleDriveMode() {
+    if (mode == DriveMode.Arcade)
       mode = DriveMode.FieldOriented;
     else
       mode = DriveMode.Arcade;
@@ -147,65 +149,58 @@ public class Drivetrain extends Subsystem implements ISubsystem{
 
   private double SpeedScale = 1;
 
+  public void DriveWithJoy(double forward, double rotation, double strafe) {
+    Output driveOutput;
+    double correction;
 
-  public void DriveWithJoy(double forward, double rotation, double strafe)
-  {
-      Output driveOutput;
-      double correction;
-
-      if(rotation < 0.2 && rotation > -0.2)
-          //when not rotating, compare your current gyro pos to the last time you were rotating to get error
-          correction = gyroCorrection();
-        else
-          correction = 0;
-
-
-      if(mode == DriveMode.Arcade)
-      {
-        if(gyro.isConnected())
-          driveOutput = drivetrain.arcadeMecanumDrive(forward * SpeedScale, (rotation - correction) * SpeedScale, strafe * SpeedScale);
-        else
-          driveOutput = drivetrain.arcadeMecanumDrive(forward * SpeedScale, rotation * SpeedScale, strafe * SpeedScale);
-      }
-      else
-      {
-        if(gyro.isConnected())
-          driveOutput = drivetrain.fieldOrientedDrive(forward * SpeedScale, (rotation - correction) * SpeedScale, strafe * SpeedScale, getGyroAngle());
-        else
-          driveOutput = drivetrain.arcadeMecanumDrive(forward * SpeedScale, rotation * SpeedScale, strafe * SpeedScale);
-      }
-
-      topLeftMotor.set(ControlMode.PercentOutput, driveOutput.getTopLeftValue());
-      topRightMotor.set(ControlMode.PercentOutput, driveOutput.getTopRightValue());
-      bottomLeftMotor.set(ControlMode.PercentOutput, driveOutput.getBottomLeftValue());
-      bottomRightMotor.set(ControlMode.PercentOutput, driveOutput.getBottomRightValue());
-
-      
-      prevAngle = getGyroAngle(); //Stores previous angle
-
-  }
-
-  public void slowMode(boolean isSlow)
-  {
-    if(isSlow)
-        SpeedScale = 0.5;
+    if (rotation < 0.2 && rotation > -0.2)
+      // when not rotating, compare your current gyro pos to the last time you were
+      // rotating to get error
+      correction = gyroCorrection();
     else
-        SpeedScale = 1;
+      correction = 0;
+
+    if (mode == DriveMode.Arcade) {
+      if (gyro.isConnected())
+        driveOutput = drivetrain.arcadeMecanumDrive(forward * SpeedScale, (rotation - correction) * SpeedScale,
+            strafe * SpeedScale);
+      else
+        driveOutput = drivetrain.arcadeMecanumDrive(forward * SpeedScale, rotation * SpeedScale, strafe * SpeedScale);
+    } else {
+      if (gyro.isConnected())
+        driveOutput = drivetrain.fieldOrientedDrive(forward * SpeedScale, (rotation - correction) * SpeedScale,
+            strafe * SpeedScale, getGyroAngle());
+      else
+        driveOutput = drivetrain.arcadeMecanumDrive(forward * SpeedScale, rotation * SpeedScale, strafe * SpeedScale);
+    }
+
+    topLeftMotor.set(ControlMode.PercentOutput, driveOutput.getTopLeftValue());
+    topRightMotor.set(ControlMode.PercentOutput, driveOutput.getTopRightValue());
+    bottomLeftMotor.set(ControlMode.PercentOutput, driveOutput.getBottomLeftValue());
+    bottomRightMotor.set(ControlMode.PercentOutput, driveOutput.getBottomRightValue());
+
+    prevAngle = getGyroAngle(); // Stores previous angle
 
   }
 
-  public void stopDrivetrain()
-  {
+  public void slowMode(boolean isSlow) {
+    if (isSlow)
+      SpeedScale = 0.5;
+    else
+      SpeedScale = 1;
+
+  }
+
+  public void stopDrivetrain() {
     topLeftMotor.set(ControlMode.PercentOutput, 0);
     topRightMotor.set(ControlMode.PercentOutput, 0);
     bottomLeftMotor.set(ControlMode.PercentOutput, 0);
     bottomRightMotor.set(ControlMode.PercentOutput, 0);
   }
 
+  // Motion Profiling
 
-  //Motion Profiling
-
-  public void loadTrajectory(Waypoint[] path, boolean reverse)
+  public void loadTrajectory(Waypoint[] path, boolean reverse) throws IOException
   {
       motionProfile.loadTrajectory(path, reverse);
   }
@@ -237,7 +232,7 @@ public class Drivetrain extends Subsystem implements ISubsystem{
   }
 
 
-  public void loadTrajectoryPathfinder(Waypoint[] path, boolean reverse)
+  public void loadTrajectoryPathfinder(Waypoint[] path, boolean reverse) throws IOException
   {
       double leftEncoder = (topLeftMotor.getSelectedSensorPosition() + bottomLeftMotor.getSelectedSensorVelocity()) / 2;
       double rightEncoder = (topRightMotor.getSelectedSensorPosition() + bottomRightMotor.getSelectedSensorVelocity()) / 2;

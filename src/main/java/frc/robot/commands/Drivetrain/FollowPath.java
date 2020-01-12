@@ -7,12 +7,15 @@
 
 package frc.robot.commands.Drivetrain;
 
+import java.io.IOException;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import jaci.pathfinder.Waypoint;
 
 /**
- * This is a command.  A command is used to make actual actions happen on the robot.  It can be a single action or a sequence of actions.
+ * This is a command. A command is used to make actual actions happen on the
+ * robot. It can be a single action or a sequence of actions.
  */
 
 public class FollowPath extends Command {
@@ -43,7 +46,12 @@ public class FollowPath extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.drivetrain.loadTrajectory(path, reverse);
+    try {
+      Robot.drivetrain.loadTrajectory(path, reverse);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run

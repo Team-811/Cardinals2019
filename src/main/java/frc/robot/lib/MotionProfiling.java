@@ -100,7 +100,7 @@ public class MotionProfiling
 
     //Trajectory Methods
 
-    public void loadTrajectory(Waypoint[] path, boolean reverse) {
+    public void loadTrajectory(Waypoint[] path, boolean reverse) throws IOException {
         Trajectory.Config cfg = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH,
                 dt, maxVelocity, maxAcceleration, maxJerk);
 
@@ -123,7 +123,7 @@ public class MotionProfiling
         setInitialOdometry();
     }
 
-    public void loadTrajectoryPathfinder(Waypoint[] path, boolean reverse, int leftEncoderRaw, int rightEncoderRaw, double gyroAngle) {
+    public void loadTrajectoryPathfinder(Waypoint[] path, boolean reverse, int leftEncoderRaw, int rightEncoderRaw, double gyroAngle) throws IOException {
         Trajectory.Config cfg = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH,
                 dt, maxVelocity, maxAcceleration, maxJerk);
 
